@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 const Formulario = () => {
   
   //Rates API
-  const [rate, setRate] = useState({});
+  const [rate, setRate] = useState({})
 
   // Estados del Formulario
   const [inputValue, setInputValue] = useState("1.00");
   // Estado de validación (Error)
   const [errorMessage, setErrorMessage] = useState("");
   const [rateFrom, setRateFrom] = useState("USD")
-  const [rateTo, setRateTo] = useState("EURO");   
+  const [rateTo, setRateTo] = useState("EUR");   
 
   // Effect para llamado de API
   useEffect(() => {
@@ -29,8 +29,8 @@ const Formulario = () => {
     obtenerMoneda();
   }, []);  
 
-  const handleInputChange = (event) => {
-    const value = event.target.value;
+  const handleInputChange = (e) => {
+    const value = e.target.value;
   
     if (isNaN(value) || parseFloat(value) <= 1) {
       setErrorMessage("You can only use numbers greater than 1");
@@ -53,9 +53,15 @@ const Formulario = () => {
   const handleCurrencyConversion = () => {
     const rateFromValue = rate[rateFrom];
     const rateToValue = rate[rateTo];
+  
+    // Verificar si los valores son números válidos
+    if (isNaN(rateFromValue) || isNaN(rateToValue)) {
+      return "Invalid conversion rates";
+    }
+  
     const convertedValue = (parseFloat(inputValue) / rateFromValue) * rateToValue;
     return convertedValue.toFixed(6);
-  }; 
+  };
 
   return (
     <div className="relative flex justify-center">
@@ -79,7 +85,7 @@ const Formulario = () => {
             ))}
           </select>          
           <label className="grid col-span-1 sm:col-span-1 row-start-5 sm:row-start-1 font-medium pt-4 sm:pt-0 pb-4 sm:pb-0">To</label>
-          <select className="grid col-span-1 sm:row-start-2 row-span-6 rounded-md py-2 px-2 border font-medium w-full sm:w-[80%]" 
+          <select value={rateTo} className="grid col-span-1 sm:row-start-2 row-span-6 rounded-md py-2 px-2 border font-medium w-full sm:w-[80%]" 
             onChange={handleRateToChange}>
           {Object.keys(rate).map((currency, index) => (
               <option key={index} value={currency}>{currency}</option>
