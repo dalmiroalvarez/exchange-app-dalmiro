@@ -94,9 +94,9 @@ const Formulario = () => {
         </form>
         <div className="grid grid-cols-1 sm:grid-cols-2 grid-rows-3">        
         <h3 className="grid col-start-1 text-3xl font-semibold pt-8 ml-8">
-            {`${inputValue} ${rateFrom}`} = <br /> {`${handleCurrencyConversion()} ${rateTo}`}
+            {`${handleCurrencyConversion()} ${rateTo}`}  = <br /> {`${inputValue} ${rateFrom}`}
         </h3>
-        <p className="grid row-start-2 text-gray-700 pt-6 ml-8">{`${handleCurrencyConversion()} ${rateTo}`} = <br /> {`${inputValue} ${rateFrom}`}</p>
+        <p className="grid row-start-2 text-gray-700 pt-6 ml-8">{`${inputValue} ${rateFrom}`} = {`${handleCurrencyConversion()} ${rateTo}`}</p>
           {errorMessage && (
             <p className="font-bold text-sm uppercase pl-8 text-red-600 row-start-3 col-start-1">{errorMessage}</p>
           )}
